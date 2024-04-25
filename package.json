@@ -1,0 +1,27 @@
+{
+  "name": "@cc12703m/scrcpy-vue-agent",
+  "version": "1.0.4",
+  "description": "scrcpy vue component for atx-agent",
+  "main": "dist/scrcpy-vue-agent.umd.js",
+  "module": "dist/scrcpy-vue-agent.mjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "ptonpm": "npm publish --access public",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "element-plus": "^2.7.1",
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "sass": "^1.75.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-dts": "^3.6.3",
+    "vue-tsc": "^1.8.5"
+  }
+}
