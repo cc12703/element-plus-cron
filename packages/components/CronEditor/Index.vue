@@ -24,7 +24,7 @@
     .tabBody {
         overflow: auto;
 
-        .el-row {
+        .radio-group {
             margin: 20px 0;
 
             .long {
@@ -111,10 +111,12 @@
                                 v-model="state.second.incrementIncrement"
                                 :min="1" :max="60" ></el-input-number>
                             {{ state.text.Seconds.interval[1] || "" }}
-                            <el-input-number
+                            <el-input-number :disabled="!state.second.enableIncrementStart"
                                 v-model="state.second.incrementStart"
                                 :min="0" :max="59" ></el-input-number>
                             {{ state.text.Seconds.interval[2] || "" }}
+                            <el-switch v-model="state.second.enableIncrementStart"
+                                    active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
                         <el-radio class="long" value="multi" >
                             {{ state.text.Seconds.specific }}
@@ -131,11 +133,11 @@
                             {{ state.text.Seconds.cycle[0] }}
                             <el-input-number
                                 v-model="state.second.rangeStart"
-                                :min="1" :max="60" ></el-input-number>
+                                :min="0" :max="59" ></el-input-number>
                             {{ state.text.Seconds.cycle[1] || "" }}
                             <el-input-number
                                 v-model="state.second.rangeEnd" 
-                                :min="0" :max="59" ></el-input-number>
+                                :min="1" :max="60" ></el-input-number>
                             {{ state.text.Seconds.cycle[2] || "" }}
                         </el-radio>
                     </el-radio-group>
@@ -154,10 +156,12 @@
                                 v-model="state.minute.incrementIncrement"
                                 :min="1" :max="60" ></el-input-number>
                             {{ state.text.Minutes.interval[1] }}
-                            <el-input-number
+                            <el-input-number  :disabled="!state.minute.enableIncrementStart"
                                 v-model="state.minute.incrementStart"
                                 :min="0" :max="59" ></el-input-number>
                             {{ state.text.Minutes.interval[2] || "" }}
+                            <el-switch v-model="state.minute.enableIncrementStart"
+                                    active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
                         <el-radio class="long" value="multi">
                             {{ state.text.Minutes.specific }}
@@ -174,11 +178,11 @@
                             {{ state.text.Minutes.cycle[0] }}
                             <el-input-number
                                 v-model="state.minute.rangeStart"
-                                :min="1" :max="60" ></el-input-number>
+                                :min="0" :max="59" ></el-input-number>
                             {{ state.text.Minutes.cycle[1] }}
                             <el-input-number
                                 v-model="state.minute.rangeEnd"
-                                :min="0" :max="59" ></el-input-number>
+                                :min="1" :max="60" ></el-input-number>
                             {{ state.text.Minutes.cycle[2] }}
                         </el-radio>
                     </el-radio-group>
@@ -197,10 +201,12 @@
                                 v-model="state.hour.incrementIncrement"
                                 :min="0" :max="23" ></el-input-number>
                             {{ state.text.Hours.interval[1] }}
-                            <el-input-number
+                            <el-input-number :disabled="!state.hour.enableIncrementStart"
                                 v-model="state.hour.incrementStart"
                                 :min="0" :max="23" ></el-input-number>
                             {{ state.text.Hours.interval[2] }}
+                            <el-switch v-model="state.hour.enableIncrementStart"
+                                    active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
                         <el-radio class="long" value="multi">
                             {{ state.text.Hours.specific }}
@@ -216,11 +222,11 @@
                             {{ state.text.Hours.cycle[0] }}
                             <el-input-number
                                 v-model="state.hour.rangeStart"
-                                :min="0" :max="23" ></el-input-number>
+                                :min="0" :max="22" ></el-input-number>
                             {{ state.text.Hours.cycle[1] }}
                             <el-input-number
                                 v-model="state.hour.rangeEnd"
-                                :min="0" :max="23" ></el-input-number>
+                                :min="1" :max="23" ></el-input-number>
                             {{ state.text.Hours.cycle[2] }}
                         </el-radio>
                     </el-radio-group>
@@ -240,10 +246,12 @@
                                 v-model="state.day.incrementIncrement"
                                 :min="1" :max="31" ></el-input-number>
                             {{ state.text.Day.interval[1] }}
-                            <el-input-number
+                            <el-input-number :disabled="!state.day.enableIncrementStart"
                                 v-model="state.day.incrementStart"
                                 :min="1" :max="31" ></el-input-number>
                             {{ state.text.Day.interval[2] }}
+                            <el-switch v-model="state.day.enableIncrementStart"
+                                    active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
                         <el-radio class="long" value="multi">
                             {{ state.text.Day.specific }}
@@ -277,11 +285,13 @@
                             {{ state.text.Month.interval[0] }}
                             <el-input-number
                                 v-model="state.month.incrementIncrement"
-                                :min="0" :max="12" ></el-input-number>
+                                :min="1" :max="12" ></el-input-number>
                             {{ state.text.Month.interval[1] }}
-                            <el-input-number
+                            <el-input-number  :disabled="!state.month.enableIncrementStart"
                                 v-model="state.month.incrementStart"
                                 :min="0" :max="12" ></el-input-number>
+                            <el-switch v-model="state.month.enableIncrementStart"
+                                active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
                         <el-radio class="long" value="multi">
                             {{ state.text.Month.specific }}
@@ -312,13 +322,14 @@
                 <div class="tabBody myScroller" :style="{'max-height': maxHeight}">
                     <el-radio-group v-model="state.week.type" class="radio-group">
                         <el-radio value="every"> {{ state.text.Week.every }} </el-radio>
-                        <el-radio value="interval">
+                        <el-radio value="interval"  class="long" >
                             {{ state.text.Week.interval[0] }}
                             <el-input-number
                                 v-model="state.week.incrementIncrement"
                                 :min="1" :max="7" ></el-input-number>
                             {{ state.text.Week.interval[1] }}
-                            <el-select v-model="state.week.incrementStart">
+                            <el-select  v-model="state.week.incrementStart" 
+                                    :disabled="!state.week.enableIncrementStart">
                                 <el-option
                                     v-for="(val, index) in state.weekVals"
                                     :key="index"
@@ -326,6 +337,8 @@
                                     :value="val" ></el-option>
                             </el-select>
                             {{ state.text.Week.interval[2] }}
+                            <el-switch v-model="state.week.enableIncrementStart"
+                                    active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
                         <el-radio class="long" value="multi">
                             {{ state.text.Week.specific }}
@@ -364,9 +377,11 @@
                                 v-model="state.year.incrementIncrement"
                                 :min="1" :max="99" ></el-input-number>
                             {{ state.text.Year.interval[1] }}
-                            <el-input-number
+                            <el-input-number  :disabled="!state.year.enableIncrementStart"
                                 v-model="state.year.incrementStart"
                                 :min="2018" :max="2118" ></el-input-number>
+                            <el-switch v-model="state.year.enableIncrementStart"
+                                active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
                         <el-radio class="long" value="multi">
                             {{ state.text.Year.specific }}
@@ -410,7 +425,7 @@
         </div>
     </div>
 </template>
-<script>
+<script lang="ts">
 import Language from "./language";
 import {watch, reactive, computed, toRefs, defineComponent} from "vue";
 
@@ -418,7 +433,7 @@ import {watch, reactive, computed, toRefs, defineComponent} from "vue";
 
 //type: every, multi, range, interval, uncertain, last
 export default defineComponent({
-    name: "cronEditor",
+    name: "CronEditor",
     props: {
         cronValue: String,
         i18n: {},
@@ -432,51 +447,58 @@ export default defineComponent({
             second: {
                 isShow: false,
                 type: "every",
-                incrementStart: 3,
+                enableIncrementStart: true,
+                incrementStart: 1,
                 incrementIncrement: 5,
                 rangeStart: 0,
-                rangeEnd: 0,
+                rangeEnd: 1,
                 specificSpecific: [],
             },
             minute: {
                 isShow: true,
                 type: "every",
-                incrementStart: 3,
+                enableIncrementStart: true,
+                incrementStart: 1,
                 incrementIncrement: 5,
                 rangeStart: 0,
-                rangeEnd: 0,
+                rangeEnd: 1,
                 specificSpecific: [],
             },
             hour: {
                 isShow: true,
                 type: "every",
-                incrementStart: 3,
+                enableIncrementStart: true,
+                incrementStart: 1,
                 incrementIncrement: 5,
                 rangeStart: 0,
-                rangeEnd: 0,
+                rangeEnd: 1,
                 specificSpecific: [],
             },
             day: {
                 isShow: true,
                 type: "every",
+                enableIncrementStart: true,
                 incrementStart: 1,
                 incrementIncrement: 1,
                 rangeStart: 0,
-                rangeEnd: 0,
+                rangeEnd: 1,
                 specificSpecific: [],
+                nearestWeekday: 1,
             },
             month: {
                 isShow: true,
                 type: "every",
-                incrementStart: 3,
+                enableIncrementStart: true,
+                incrementStart: 1,
                 incrementIncrement: 5,
                 rangeStart: 0,
-                rangeEnd: 0,
+                rangeEnd: 1,
                 specificSpecific: [],
             },
             week: {
                 isShow: true,
                 type: "every",
+                enableIncrementStart: true,
                 incrementStart: 1,
                 incrementIncrement: 1,
                 specificSpecific: [],
@@ -485,6 +507,7 @@ export default defineComponent({
             year: {
                 isShow: false,
                 type: "every",
+                enableIncrementStart: true,
                 incrementStart: 2017,
                 incrementIncrement: 1,
                 rangeStart: 0,
@@ -515,7 +538,8 @@ export default defineComponent({
                         seconds = "*";
                         break;
                     case "interval":
-                        seconds = state.second.incrementStart + "/" + state.second.incrementIncrement;
+                        const start = state.second.enableIncrementStart ? state.second.incrementStart : "*";
+                        seconds = start + "/" + state.second.incrementIncrement;
                         break;
                     case "multi":
                         state.second.specificSpecific.map((val) => { seconds += val + ","; });
@@ -534,7 +558,8 @@ export default defineComponent({
                         minutes = "*";
                         break;
                     case "interval":
-                        minutes = state.minute.incrementStart + "/" + state.minute.incrementIncrement;
+                        const start = state.minute.enableIncrementStart ? state.minute.incrementStart : "*";
+                        minutes = start + "/" + state.minute.incrementIncrement;
                         break;
                     case "multi":
                         state.minute.specificSpecific.map((val) => { minutes += val + ","; });
@@ -553,7 +578,8 @@ export default defineComponent({
                         hours = "*";
                         break;
                     case "interval":
-                        hours = state.hour.incrementStart + "/" + state.hour.incrementIncrement;
+                        const start = state.hour.enableIncrementStart ? state.hour.incrementStart : "*";
+                        hours = start + "/" + state.hour.incrementIncrement;
                         break;
                     case "multi":
                         state.hour.specificSpecific.map((val) => { hours += val + ","; });
@@ -575,7 +601,8 @@ export default defineComponent({
                         days = "?";
                         break;
                     case "interval":
-                        days = state.day.incrementStart + "/" + state.day.incrementIncrement;
+                        const start = state.day.enableIncrementStart ? state.day.incrementStart : "*";
+                        days = start + "/" + state.day.incrementIncrement;
                         break;
                     case "multi":
                         state.day.specificSpecific.map((val) => { days += val + ","; });
@@ -600,7 +627,8 @@ export default defineComponent({
                         weeks = "?";
                         break;
                     case "interval":
-                        weeks = state.week.incrementStart + "/" + state.week.incrementIncrement;
+                        const start = state.week.enableIncrementStart ? state.week.incrementStart : "?";
+                        weeks = start + "/" + state.week.incrementIncrement;
                         break;
                     case "multi":
                         state.week.specificSpecific.map((val) => { weeks += val + ","; });
@@ -619,7 +647,8 @@ export default defineComponent({
                         months = "*";
                         break;
                     case "interval":
-                        months = state.month.incrementStart + "/" + state.month.incrementIncrement;
+                        const start = state.month.enableIncrementStart ? state.month.incrementStart : "*";
+                        months = start + "/" + state.month.incrementIncrement;
                         break;
                     case "multi":
                         state.month.specificSpecific.map((val) => { months += val + ","; });
@@ -638,7 +667,8 @@ export default defineComponent({
                         years = "*";
                         break;
                     case "interval":
-                        years = state.year.incrementStart + "/" + state.year.incrementIncrement;
+                        const start = state.year.enableIncrementStart ? state.year.incrementStart : "*";
+                        years = start + "/" + state.year.incrementIncrement;
                         break;
                     case "multi":
                         state.year.specificSpecific.map((val) => { years += val + ","; });
@@ -683,7 +713,8 @@ export default defineComponent({
                 }else if (secondsText.includes("/")) {
                     state.second.type = "interval";
                     let secondsTexts = secondsText.split("/");
-                    state.second.incrementStart = parseInt(secondsTexts[0])
+                    state.second.enableIncrementStart = secondsTexts[0] !== "*";
+                    state.second.incrementStart = (secondsTexts[0] !== "*")? parseInt(secondsTexts[0]) : 0;
                     state.second.incrementIncrement = parseInt(secondsTexts[1])
                 }else if (secondsText.includes(",") || isFinite(secondsText)) {
                     state.second.type = "multi";
@@ -704,7 +735,8 @@ export default defineComponent({
             }else if (minutesText.includes("/")) {
                 state.minute.type = "interval";
                 let minutesTexts = minutesText.split("/");
-                state.minute.incrementStart = parseInt(minutesTexts[0])
+                state.minute.enableIncrementStart = minutesTexts[0] !== "*";
+                state.minute.incrementStart = (minutesTexts[0] !== "*")? parseInt(minutesTexts[0]) : 0;
                 state.minute.incrementIncrement = parseInt(minutesTexts[1])
             }else if (minutesText.includes(",") || isFinite(minutesText)) {
                 state.minute.type = "multi";
@@ -724,7 +756,8 @@ export default defineComponent({
             }else if (hoursText.includes("/")) {
                 state.hour.type = "interval";
                 let hoursTexts = hoursText.split("/");
-                state.hour.incrementStart = parseInt(hoursTexts[0])
+                state.hour.enableIncrementStart = hoursTexts[0] !== "*";
+                state.hour.incrementStart = (hoursTexts[0] !== "*")? parseInt(hoursTexts[0]) : 0;
                 state.hour.incrementIncrement = parseInt(hoursTexts[1])
             }else if (hoursText.includes(",") || isFinite(hoursText)) {
                 state.hour.type = "multi";
@@ -744,7 +777,8 @@ export default defineComponent({
             } else if (daysText.includes("/")) {
                 state.day.type = "interval";
                 let daysTexts = daysText.split("/");
-                state.day.incrementStart = parseInt(daysTexts[0])
+                state.day.enableIncrementStart = daysTexts[0] !== "*";
+                state.day.incrementStart = (daysTexts[0] !== "*")? parseInt(daysTexts[0]) : 1;
                 state.day.incrementIncrement = parseInt(daysTexts[1])
             }else if (daysText.includes(",") || isFinite(daysText)) {
                 state.day.type = "multi";
@@ -772,7 +806,8 @@ export default defineComponent({
             }else if (weeksText.includes("/")) {
                 state.week.type = "interval";
                 let weeksTexts = weeksText.split("/");
-                state.week.incrementStart = parseInt(weeksTexts[0])
+                state.week.enableIncrementStart = weeksTexts[0] !== "*";
+                state.week.incrementStart = (weeksTexts[0] !== "*")? parseInt(weeksTexts[0]) : 1;
                 state.week.incrementIncrement = parseInt(weeksTexts[1])
             }else if (weeksText.includes(",") || isFinite(weeksText)) {
                 state.week.type = "multi";
@@ -793,7 +828,8 @@ export default defineComponent({
             }else if (monthsText.includes("/")) {
                 state.month.type = "interval";
                 let monthsTexts = monthsText.split("/");
-                state.month.incrementStart = parseInt(monthsTexts[0])
+                state.month.enableIncrementStart = monthsTexts[0] !== "*";
+                state.month.incrementStart = (monthsTexts[0] !== "*")? parseInt(monthsTexts[0]) : 1;
                 state.month.incrementIncrement = parseInt(monthsTexts[1])
             }else if (monthsText.includes(",") || isFinite(monthsText)) {
                 state.month.type = "multi";
@@ -814,7 +850,8 @@ export default defineComponent({
                 }else if (yearsText.includes("/")) {
                     state.year.type = "interval";
                     let yearsTexts = yearsText.split("/");
-                    state.year.incrementStart = parseInt(yearsTexts[0])
+                    state.year.enableIncrementStart = yearsTexts[0] !== "*";
+                    state.year.incrementStart = (yearsTexts[0] !== "*")? parseInt(yearsTexts[0]) : 2017;
                     state.year.incrementIncrement = parseInt(yearsTexts[1])
                 }else if (yearsText.includes(",") || isFinite(yearsText)) {
                     state.year.type = "multi";

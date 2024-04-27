@@ -1,9 +1,9 @@
 {
-  "name": "@cc12703m/scrcpy-vue-agent",
-  "version": "1.0.4",
-  "description": "scrcpy vue component for atx-agent",
-  "main": "dist/scrcpy-vue-agent.umd.js",
-  "module": "dist/scrcpy-vue-agent.mjs",
+  "name": "@cc12703m/element-plus-cron",
+  "version": "1.0.0",
+  "description": "cron editor vue component for element-plus",
+  "main": "dist/cron-editor.umd.js",
+  "module": "dist/cron-editor.mjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
