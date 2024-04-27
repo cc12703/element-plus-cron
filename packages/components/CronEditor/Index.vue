@@ -10,22 +10,21 @@
         box-shadow: none;
     }
 
-    .radio-group {
-        display: flex;
-        flex-direction: column;
-        align-items:flex-start;
-    }
-
-    .el-radio {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
+    
 
     .tabBody {
         overflow: auto;
 
         .radio-group {
+            display: flex;
+            flex-direction: column;
+            align-items:flex-start;
             margin: 20px 0;
+
+            .el-radio {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
 
             .long {
                 .el-select {
@@ -74,6 +73,7 @@
         width: 100%;
         margin-top: 5px;
         display: flex;
+        flex-direction:row;
         align-items: center;
         justify-content: space-around;
 
@@ -104,8 +104,8 @@
                 </template>
                 <div class="tabBody myScroller" :style="{'max-height': maxHeight}">
                     <el-radio-group v-model="state.second.type" class="radio-group">
-                        <el-radio  value="every"> {{ state.text.Seconds.every }} </el-radio>
-                        <el-radio value="interval" >
+                        <el-radio  label="every"> {{ state.text.Seconds.every }} </el-radio>
+                        <el-radio label="interval" >
                             {{ state.text.Seconds.interval[0] }}
                             <el-input-number
                                 v-model="state.second.incrementIncrement"
@@ -118,7 +118,7 @@
                             <el-switch v-model="state.second.enableIncrementStart"
                                     active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
-                        <el-radio class="long" value="multi" >
+                        <el-radio class="long" label="multi" >
                             {{ state.text.Seconds.specific }}
                             <el-select multiple
                                 v-model="state.second.specificSpecific">
@@ -129,7 +129,7 @@
                                 </el-option>
                             </el-select>
                         </el-radio>
-                        <el-radio value="range" >
+                        <el-radio label="range" >
                             {{ state.text.Seconds.cycle[0] }}
                             <el-input-number
                                 v-model="state.second.rangeStart"
@@ -149,8 +149,8 @@
                 </template>
                 <div class="tabBody myScroller" :style="{'max-height': maxHeight}">
                     <el-radio-group v-model="state.minute.type" class="radio-group">
-                        <el-radio value="every"> {{ state.text.Minutes.every }} </el-radio>
-                        <el-radio value="interval" >
+                        <el-radio label="every"> {{ state.text.Minutes.every }} </el-radio>
+                        <el-radio label="interval" >
                             {{ state.text.Minutes.interval[0] }}
                             <el-input-number
                                 v-model="state.minute.incrementIncrement"
@@ -163,7 +163,7 @@
                             <el-switch v-model="state.minute.enableIncrementStart"
                                     active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
-                        <el-radio class="long" value="multi">
+                        <el-radio class="long" label="multi">
                             {{ state.text.Minutes.specific }}
                             <el-select multiple
                                 v-model="state.minute.specificSpecific">
@@ -174,7 +174,7 @@
                                 </el-option>
                             </el-select>
                         </el-radio>
-                        <el-radio value="range" >
+                        <el-radio label="range" >
                             {{ state.text.Minutes.cycle[0] }}
                             <el-input-number
                                 v-model="state.minute.rangeStart"
@@ -194,8 +194,8 @@
                 </template>
                 <div class="tabBody myScroller" :style="{'max-height': maxHeight}">
                     <el-radio-group v-model="state.hour.type" class="radio-group">
-                        <el-radio value="every"> {{ state.text.Hours.every }} </el-radio>
-                        <el-radio value="interval" >
+                        <el-radio label="every"> {{ state.text.Hours.every }} </el-radio>
+                        <el-radio label="interval" >
                             {{ state.text.Hours.interval[0] }}
                             <el-input-number
                                 v-model="state.hour.incrementIncrement"
@@ -208,7 +208,7 @@
                             <el-switch v-model="state.hour.enableIncrementStart"
                                     active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
-                        <el-radio class="long" value="multi">
+                        <el-radio class="long" label="multi">
                             {{ state.text.Hours.specific }}
                             <el-select multiple v-model="state.hour.specificSpecific">
                                 <el-option
@@ -218,7 +218,7 @@
                                 </el-option >
                             </el-select>
                         </el-radio>
-                        <el-radio value="range">
+                        <el-radio label="range">
                             {{ state.text.Hours.cycle[0] }}
                             <el-input-number
                                 v-model="state.hour.rangeStart"
@@ -238,9 +238,9 @@
                 </template>
                 <div class="tabBody myScroller" :style="{'max-height': maxHeight}">
                     <el-radio-group v-model="state.day.type" class="radio-group">
-                        <el-radio value="every"> {{ state.text.Day.every }} </el-radio>
-                        <el-radio value="uncertain"> {{ state.text.Day.uncertain }} </el-radio>
-                        <el-radio value="interval">
+                        <el-radio label="every"> {{ state.text.Day.every }} </el-radio>
+                        <el-radio label="uncertain"> {{ state.text.Day.uncertain }} </el-radio>
+                        <el-radio label="interval">
                             {{ state.text.Day.interval[0] }}
                             <el-input-number
                                 v-model="state.day.incrementIncrement"
@@ -253,7 +253,7 @@
                             <el-switch v-model="state.day.enableIncrementStart"
                                     active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
-                        <el-radio class="long" value="multi">
+                        <el-radio class="long" label="multi">
                             {{ state.text.Day.specific }}
                             <el-select multiple v-model="state.day.specificSpecific">
                                 <el-option
@@ -263,8 +263,8 @@
                                 </el-option >
                             </el-select>
                         </el-radio>
-                        <el-radio value="last"> {{ state.text.Day.lastDay }} </el-radio>
-                        <el-radio value="nearest">
+                        <el-radio label="last"> {{ state.text.Day.lastDay }} </el-radio>
+                        <el-radio label="nearest">
                             {{ state.text.Day.nearestWeekday[0] }}
                             <el-input-number
                                 v-model="state.day.nearestWeekday"
@@ -280,8 +280,8 @@
                 </template>
                 <div class="tabBody myScroller" :style="{'max-height': maxHeight}">
                     <el-radio-group v-model="state.month.type" class="radio-group">
-                        <el-radio value="every"> {{ state.text.Month.every }} </el-radio>
-                        <el-radio value="interval">
+                        <el-radio label="every"> {{ state.text.Month.every }} </el-radio>
+                        <el-radio label="interval">
                             {{ state.text.Month.interval[0] }}
                             <el-input-number
                                 v-model="state.month.incrementIncrement"
@@ -293,7 +293,7 @@
                             <el-switch v-model="state.month.enableIncrementStart"
                                 active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
-                        <el-radio class="long" value="multi">
+                        <el-radio class="long" label="multi">
                             {{ state.text.Month.specific }}
                             <el-select multiple v-model="state.month.specificSpecific">
                                 <el-option
@@ -302,7 +302,7 @@
                                 </el-option>
                             </el-select>
                         </el-radio>
-                        <el-radio value="range">
+                        <el-radio label="range">
                             {{ state.text.Month.cycle[0] }}
                             <el-input-number
                                 v-model="state.month.rangeStart"
@@ -321,8 +321,8 @@
                 </template>
                 <div class="tabBody myScroller" :style="{'max-height': maxHeight}">
                     <el-radio-group v-model="state.week.type" class="radio-group">
-                        <el-radio value="every"> {{ state.text.Week.every }} </el-radio>
-                        <el-radio value="interval"  class="long" >
+                        <el-radio label="every"> {{ state.text.Week.every }} </el-radio>
+                        <el-radio label="interval"  class="long" >
                             {{ state.text.Week.interval[0] }}
                             <el-input-number
                                 v-model="state.week.incrementIncrement"
@@ -340,7 +340,7 @@
                             <el-switch v-model="state.week.enableIncrementStart"
                                     active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
-                        <el-radio class="long" value="multi">
+                        <el-radio class="long" label="multi">
                             {{ state.text.Week.specific }}
                             <el-select multiple v-model="state.week.specificSpecific">
                                 <el-option
@@ -350,7 +350,7 @@
                                     :value="val" ></el-option>
                              </el-select>
                         </el-radio>
-                        <el-radio value="last">
+                        <el-radio label="last">
                             {{ state.text.Week.lastWeek[0] }} 
                             <el-select v-model="state.week.lastSpecificDomDay">
                                 <el-option
@@ -370,8 +370,8 @@
                 </template>
                 <div class="tabBody myScroller" :style="{'max-height': maxHeight}">
                     <el-radio-group v-model="state.year.type" class="radio-group">
-                        <el-radio value="every"> {{ state.text.Year.every }} </el-radio>
-                        <el-radio value="interval">
+                        <el-radio label="every"> {{ state.text.Year.every }} </el-radio>
+                        <el-radio label="interval">
                             {{ state.text.Year.interval[0] }}
                             <el-input-number
                                 v-model="state.year.incrementIncrement"
@@ -383,7 +383,7 @@
                             <el-switch v-model="state.year.enableIncrementStart"
                                 active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                         </el-radio>
-                        <el-radio class="long" value="multi">
+                        <el-radio class="long" label="multi">
                             {{ state.text.Year.specific }}
                             <el-select filterable multiple
                                 v-model="state.year.specificSpecific">
@@ -395,7 +395,7 @@
                                 ></el-option>
                             </el-select>
                         </el-radio>
-                        <el-radio value="range">
+                        <el-radio label="range">
                             {{ state.text.Year.cycle[0] }}
                             <el-input-number
                                 v-model="state.year.rangeStart"
@@ -411,9 +411,9 @@
         </el-tabs>
         <div class="bottom">
             <div class="value">
-        <span>
-          cron预览:
-        </span>
+                <span>
+                cron预览:
+                </span>
                 <el-tag type="primary">
                     {{ state.cron }}
                 </el-tag>
