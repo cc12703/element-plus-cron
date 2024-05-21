@@ -1,6 +1,6 @@
 {
   "name": "@cc12703m/element-plus-cron",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "cron editor vue component for element-plus",
   "main": "dist/cron-editor.umd.js",
   "module": "dist/cron-editor.mjs",

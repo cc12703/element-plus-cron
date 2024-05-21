@@ -350,6 +350,16 @@
                                     :value="val" ></el-option>
                              </el-select>
                         </el-radio>
+                        <el-radio label="range">
+                            {{ state.text.Week.cycle[0] }}
+                            <el-input-number
+                                v-model="state.week.rangeStart"
+                                :min="0" :max="6" ></el-input-number>
+                            {{ state.text.Week.cycle[1] }}
+                            <el-input-number
+                                v-model="state.week.rangeEnd"
+                                :min="1" :max="7" ></el-input-number>
+                        </el-radio>
                         <el-radio label="last">
                             {{ state.text.Week.lastWeek[0] }} 
                             <el-select v-model="state.week.lastSpecificDomDay">
@@ -437,11 +447,11 @@ export default defineComponent({
     props: {
         cronValue: String,
         i18n: {},
-        maxHeight: {}
+        maxHeight: String
     },
     setup(props, {emit}) {
         const {i18n} = toRefs(props)
-        const state = reactive({
+        const state: { [key: string]: any } = reactive({
             language: i18n.value,
             cronItemNum: 0,
             second: {
@@ -502,6 +512,8 @@ export default defineComponent({
                 incrementStart: 1,
                 incrementIncrement: 1,
                 specificSpecific: [],
+                rangeStart: 1,
+                rangeEnd: 5,
                 lastSpecificDomDay: 1,
             },
             year: {
@@ -542,7 +554,7 @@ export default defineComponent({
                         seconds = start + "/" + state.second.incrementIncrement;
                         break;
                     case "multi":
-                        state.second.specificSpecific.map((val) => { seconds += val + ","; });
+                        state.second.specificSpecific.map((val: string) => { seconds += val + ","; });
                         seconds = seconds.slice(0, -1);
                         break;
                     case "range":
@@ -562,7 +574,7 @@ export default defineComponent({
                         minutes = start + "/" + state.minute.incrementIncrement;
                         break;
                     case "multi":
-                        state.minute.specificSpecific.map((val) => { minutes += val + ","; });
+                        state.minute.specificSpecific.map((val: string) => { minutes += val + ","; });
                         minutes = minutes.slice(0, -1);
                         break;
                     case "range":
@@ -582,7 +594,7 @@ export default defineComponent({
                         hours = start + "/" + state.hour.incrementIncrement;
                         break;
                     case "multi":
-                        state.hour.specificSpecific.map((val) => { hours += val + ","; });
+                        state.hour.specificSpecific.map((val: string) => { hours += val + ","; });
                         hours = hours.slice(0, -1);
                         break;
                     case "range":
@@ -605,7 +617,7 @@ export default defineComponent({
                         days = start + "/" + state.day.incrementIncrement;
                         break;
                     case "multi":
-                        state.day.specificSpecific.map((val) => { days += val + ","; });
+                        state.day.specificSpecific.map((val: string) => { days += val + ","; });
                         days = days.slice(0, -1);
                         break;
                     case "last":
@@ -631,8 +643,11 @@ export default defineComponent({
                         weeks = start + "/" + state.week.incrementIncrement;
                         break;
                     case "multi":
-                        state.week.specificSpecific.map((val) => { weeks += val + ","; });
+                        state.week.specificSpecific.map((val: string) => { weeks += val + ","; });
                         weeks = weeks.slice(0, -1);
+                        break;
+                    case "range":
+                        weeks = state.week.rangeStart + "-" + state.week.rangeEnd;
                         break;
                     case "last":
                         weeks = state.week.lastSpecificDomDay + "L";
@@ -651,7 +666,7 @@ export default defineComponent({
                         months = start + "/" + state.month.incrementIncrement;
                         break;
                     case "multi":
-                        state.month.specificSpecific.map((val) => { months += val + ","; });
+                        state.month.specificSpecific.map((val: string) => { months += val + ","; });
                         months = months.slice(0, -1);
                         break;
                     case "range":
@@ -671,7 +686,7 @@ export default defineComponent({
                         years = start + "/" + state.year.incrementIncrement;
                         break;
                     case "multi":
-                        state.year.specificSpecific.map((val) => { years += val + ","; });
+                        state.year.specificSpecific.map((val: string) => { years += val + ","; });
                         years = years.slice(0, -1);
                         break;
                     case "range":
@@ -812,6 +827,11 @@ export default defineComponent({
             }else if (weeksText.includes(",") || isFinite(weeksText)) {
                 state.week.type = "multi";
                 state.week.specificSpecific = weeksText.split(",").map(item => parseInt(item));
+            }else if (weeksText.includes("-")) {
+                state.week.type = "range";
+                let weeksTexts = weeksText.split("-");
+                state.week.rangeStart = parseInt(weeksTexts[0])
+                state.week.rangeEnd = parseInt(weeksTexts[1])
             }else if (weeksText.endsWith("L")) {
                 state.week.type = "last";
                 state.week.lastSpecificDomDay = parseInt(weeksText.replaceAll("L", ""))
